@@ -1,6 +1,6 @@
 # 自动化生成周报
 
-> GitHub：
+> GitHub：https://github.com/yangyang0126/PythonOA/tree/master/MakeWorkReport
 
 ## 流程
 
@@ -9,6 +9,8 @@
 操作Excel，生成图表
 
 写入Word文档
+
+![](http://cdn.zhaojingyi0126.com/IMG/image-20200622155843178.png)
 
 ## 前期准备
 
@@ -193,7 +195,7 @@ ax.spines['right'].set_visible(False)
 plt.show()
 ```
 
-这部分的完整代码可以在这里下载：
+这部分的完整代码可以在这里下载：https://github.com/yangyang0126/PythonOA/blob/master/MakeWorkReport/Part1_English.py
 
 ![](http://cdn.zhaojingyi0126.com/IMG/image-20200622111420913.png)
 
@@ -213,7 +215,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-这部分的完整代码可以在这里下载：
+这部分的完整代码可以在这里下载：https://github.com/yangyang0126/PythonOA/blob/master/MakeWorkReport/Part2.py
 
 ![](http://cdn.zhaojingyi0126.com/IMG/image-20200622124056792.png)
 
@@ -245,26 +247,40 @@ ax.spines['right'].set_visible(False)
 plt.show()
 ```
 
-这部分的完整代码可以在这里下载：
+这部分的完整代码可以在这里下载：https://github.com/yangyang0126/PythonOA/blob/master/MakeWorkReport/Part1_Chinese.py
 
 ![](http://cdn.zhaojingyi0126.com/IMG/image-20200622121239281.png)
 
 ## 写入Word
 
+### 写入标题
+
+```python
 document = Document()
 document.add_heading('学生成绩分析报告', level=0)
 first_student = students.iloc[0,:]['姓名']
 first_score = students.iloc[0,:]['总分']
-# 设置格式
+```
+
+### 设置正文字体
+```python
 document.styles['Normal'].font.name = 'Times New Roman'
 document.styles['Normal']._element.rPr.rFonts.set(qn('w:eastAsia'), '仿宋')
+```
 
+### 写入正文
+
+```python
 p = document.add_paragraph('本次测评，全班共有{}名同学参加考试，其中分数总分排名第一的同学是'.format(len(students.姓名)))
 p.add_run(str(first_student)).bold = True
 p.add_run('，分数为')
 p.add_run(str(first_score)).bold = True
 p.add_run('。学生考试总体成绩如下')
+```
 
+### 写入表格
+
+```python
 table = document.add_table(rows=len(students.姓名)+1, cols=5, style='Medium Shading 1 Accent 5')
 table.cell(0,0).text = '姓名'
 table.cell(0,1).text = '语文'
@@ -278,22 +294,25 @@ for i,(index,row) in enumerate(students.iterrows()):
     table.cell(i+1, 2).text = str(row['数学'])
     table.cell(i+1, 3).text = str(row['英语'])
     table.cell(i+1, 4).text = str(row['总分'])
+```
 
+### 插入图片
+
+```python
 document.add_picture('Part3_data.jpg')
+```
+
+### 保存数据
+
+```python
 document.save('Part3_学生成绩分析报告.docx')
-
-```
-document = Document()
-document.add_paragraph
 ```
 
-![](http://cdn.zhaojingyi0126.com/IMG/image-20200622155843178.png)
+这部分的完整代码可以在这里下载：https://github.com/yangyang0126/PythonOA/blob/master/MakeWorkReport/Part3.py
 
 ## 完整代码
 
-
-
-```
+```python
 from faker import Faker
 import random
 import pandas as pd
