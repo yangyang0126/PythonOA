@@ -164,9 +164,7 @@ df.to_excel(os.getcwd() + '\\汇总表.xlsx')
 
 ## 其他
 
-代码可在以下链接处下载
-
-
+代码可在以下链接处下载：https://github.com/yangyang0126/PythonOA/tree/master/CarData
 
 请先运行`faker'py`，这个代码伪造了100个Excel的数据
 
