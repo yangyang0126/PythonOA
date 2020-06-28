@@ -7,6 +7,8 @@ Created on Tue Jun 23 12:09:36 2020
 import pandas as pd
 import numpy as np
 import os
+import time
+start = time.time()
 
 path = os.getcwd()+ '\\TotelData\\'
 PathList = os.listdir(path)
@@ -50,3 +52,5 @@ df = pd.DataFrame({
 df = df.set_index('序号')     
 df.to_excel(os.getcwd() + '\\汇总表.xlsx')
     
+end = time.time()
+print("花费", end-start, "秒")
